@@ -1,0 +1,17 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+}
+
+.card {
+    background-color: grey;
+    height: 500px;
+    width: 250px;
+    border: solid 2px #000;
+}
+
+.active {
+    background-color: aqua;
+    z-index: 1;
+}
