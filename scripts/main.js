@@ -39,10 +39,12 @@ class Personnage {
       this.index = firstName + name;
 
       this.single = "";
-      this.happinness = 50;
+      this.happinness = 55;
+      this.color = "#CCCCCC";
   
       this.friends = [];
       this.alive = true;
+      this.child = 0;
     }
     // Méthodes
   
@@ -61,6 +63,7 @@ class Personnage {
       if (target.happinness >= 100) {
           target.happinness = 100;
       }
+      changeBtn();
     }
   
     // Tuer une cible
@@ -94,6 +97,12 @@ class Personnage {
       const targetRand =  Math.floor(Math.random() * 16) + 5;
       this.happinness += myRand;
       target.happinness += targetRand;
+      if (this.happinness > 100) {
+        this.happinness = 100;
+      }
+      if (target.happinness > 100) {
+        target.happinness = 100;
+      }
       return (`${this.firstName} ${this.name} et ${target.firstName} ${target.name} sont heureux`)
     }
 
@@ -102,36 +111,48 @@ class Personnage {
       if (this.friends.length == 0 || !this.friends.find(friend => friend.index === target.index)) {
         this.friends.push(target);
         target.friends.push(this);
+        console.log(this.festoyer(target));
+        changeBtn();
         return (`${this.firstName} ${this.name} et ${target.firstName} ${target.name} sont désormais amis`);
       }
     }
     procreate(target) {
-      // plus tard
+      this.child++;
+      target.child++;
+      console.log(this.festoyer(target));
     }
 
     getHumeur() {
       if (this.happinness <= 0) {
+        this.color = "#4B0000";
         return `Suicidaire`;
       }
       else if (this.happinness <= 20) {
+        this.color = "#8B0000";
         return `Désespéré`;
       }
       else if (this.happinness <= 40) {
+        this.color = "#CD5C5C";
         return `Déprimé`;
       }
       else if (this.happinness <= 50) {
+        this.color = "#E9967A";
         return `Triste`;
       }
       else if (this.happinness <= 60) {
+        this.color = "#CCCCCC";
         return `Neutre`;
       }
       else if (this.happinness <= 80) {
+        this.color = "#C1E1C1";
         return `Content`;
       }
       else if (this.happinness < 100) {
+        this.color = "#98FB98";
         return `Joyeux`;
       }
       else if (this.happinness == 100) {
+        this.color = "#7CFC98";
         return `Euphorique`;
       }
     }
@@ -170,10 +191,11 @@ function displayResponse(str) {
 
 function deathRoll(target) {
   if (target.happinness < 0) { 
-    target.happinness == 0;
+    target.happinness = 0;
   }
   if (target.happinness == 0) {
     const randRoll =  Math.floor(Math.random() * 100);
+    console.log(randRoll);
     if (randRoll >= 50) {
       target.alive = false;
       addDeath(target);
@@ -210,10 +232,9 @@ function checkMary(target) {
   if (target.single) {
     const tmp = listCard[findIndex(target.single)];
     tmp.single = '';
-    console.log(target.single);
     target.single = '';
-    console.log(target.single);
-    console.log(listCard);
+    tmp.happinness -= Math.floor(Math.random() * 16) + 5;
+    deathRoll(tmp);
   }
 }
 
@@ -241,7 +262,7 @@ function disableBtn() {
 
 function addCharacterToListCard() {
 
-  if (inputFirstName.value && inputName.value && inputAge.value && inputCategory.value) {
+  if (inputFirstName.value && inputName.value && inputAge.value && inputCategory.value && inputGender.value) {
 
     if (!listCard.find(card => card.index === (inputFirstName.value + inputName.value))) {
       const newCharacter = new Personnage(`${inputFirstName.value}`, `${inputName.value}`, inputAge.value, `${inputGender.value}`, `${inputCategory.value}`);
@@ -252,8 +273,16 @@ function addCharacterToListCard() {
     }
   } else {
       retun (`Veuillez remplir tous les champs`)
-    }
+  }
+  resetvalue()
+}
 
+function resetvalue() {
+  inputFirstName.value = "";
+  inputName.value = "";
+  inputAge.value = "";
+  inputCategory.value = "";
+  inputGender.value= "";
 }
 
 function displayPlayerCards() {
@@ -268,22 +297,26 @@ function displayPlayerCards() {
     if (!element.alive) {
       tmp += " dead";
     }
-    // const photo = getphoto();
+    const barWidth = 100 - element.happinness;
+    const status = element.getStatut()
+    const photo = getPhoto(element);
     playerCardsContainer.innerHTML += `
     <div class="player-card${tmp}" data-name="${index}">
                     <div class="player-card-content">
                         <div class="display-name-first-name-wrapper">
                             <div class="displayed-firstname">${element.firstName}</div>
                             <div class="displayed-name">${element.name}</div>
+                            <div class="displayed-category">${element.category}</div>
                         </div>
                         <div class="displayed-player-image">
-                            <div class="player-image">photo</div>
+                            <div class="player-image"><img src=${photo} alt=""></div>
                         </div>
-                        <div class="displayed-category">Category : ${element.category}</div>
                         <div class="displayed-age">Age : ${element.age}</div>
                         <div class="displayed-gender">Genre : ${element.genre}</div>
                         <div class="displayed-happiness">Humeur : ${element.getHumeur()}</div>
-                        <div class="displayed-status">Statut :  ${element.getStatut()}</div>
+                        <div class="happinessBar" style="background-color: ${element.color}";><div class="happinessBar--empty" style="width:${barWidth}%;"></div></div>
+                        <div class="displayed-status">Statut : ${status}</div>
+                        <div class="displayed-status">enfants : ${element.child}</div>
                     </div>
                 </div>
     `;
@@ -302,6 +335,65 @@ function findIndex(str) {
   return (i);
 }
 
+// Photo Matching
+function getPhoto(element) {
+
+  if (element.alive) {
+    // Male Choice
+    if (element.genre == "Homme") {
+      if (element.category == "Sans-Chaumière") {
+        return (`./img/vagabond-male.png`);
+      } 
+      else if (element.category == "Noble") {
+        return (`./img/lord-male.png`);
+      } 
+      else if (element.category == "Paysan") {
+        return (`./img/farmer-male.png`);
+      } 
+      else if (element.category == "Fidèle") {
+        return (`./img/monk-male.png`);
+      } 
+      else if (element.category == "Mage") {
+        return (`./img/vagabond-male.png`);
+      } 
+      else if (element.category == "Loup-Garou") {
+        return (`./img/werewolf-male.png`);
+      }
+    }
+
+    // Female Choice
+    else if (element.genre == "Femme") {
+      if (element.category == "Sans-Chaumière") {
+        return (`./img/vagabond-female.png`);
+      } 
+      else if (element.category == "Noble") {
+        return (`./img/lord-female.png`);
+      } 
+      else if (element.category == "Paysan") {
+        return (`./img/farmer-female.png`);
+      } 
+      else if (element.category == "Fidèle") {
+        return (`./img/monk-female.png`);
+      } 
+      else if (element.category == "Mage") {
+        return (`./img/monk-female.png`);
+      } 
+      else if (element.category == "Loup-Garou") {
+        return (`./img/werewolf-female.png`);
+      }
+    }
+
+    else {
+      return (`./img/unknown.png`)
+    }
+  } 
+
+  else {
+    return (`./img/dead-night.png`)
+  }
+}
+
+
 // ==============================
 // 🧲 Événements
 // ==============================
@@ -318,14 +410,28 @@ btnAll.addEventListener("click", (e) => {
     switch((e.target.classList)[2]) {
       case("kill") : {
         console.log(first.killTarget(second));
+        break;
       }
       case("mary") : {
         first.fallInLove(second);
+        break;
       }
-      case("insult") : {}
-      case("complimenter") : {}
-      case("friend") : {}
-      case("procreate") : {}
+      case("insult") : {
+        first.argue(second)
+        break;
+      }
+      case("complimenter") : {
+        console.log(first.festoyer(second));
+        break;
+      }
+      case("friend") : {
+        console.log(first.addfriend(second));
+        break;
+      }
+      case("procreate") : {
+        first.procreate(second);
+        break;
+      }
     }
     displayPlayerCards();
   }
