@@ -3,18 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>exo</title>
+    <title>RPG | Harald</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./styles/styles.min.css">
-    <script src="./scripts/main.js" defer></script>
+    <script src="scripts/main.js" defer></script>
 </head>
+
 <body>
-    <div class="error"></div>
-    <div class="cards">
-        <div class="card" data-index="0"></div>
-        <div class="card"data-index="1"></div>
-        <div class="card"data-index="2"></div>
-        <div class="card"data-index="3"></div>
+
+    <!-- Main Menu Page -->
+    <div class="main-menu-page">
+        <div class="main-wrapper">
+            <div class="logo-container">
+                <img src="./img/logo-rpg-game.png" alt="" class="logo-img">
+            </div>
+            <form action="" class="caracters-creation">
+                <div>
+                    <h2>Prénom</h2>
+                    <input type="text" class="input-first-name" maxlength="20">
+                </div>
+                <div>
+                    <h2>Nom</h2>
+                    <input type="text" class="input-name" maxlength="20">
+                </div>
+                <div>
+                    <h2>Age</h2>
+                    <input type="text" class="input-age" min="0" max="500">
+                </div> 
+                <div>
+                    <h2>Genre</h2>
+                    <select name="" id="" class="gender-select">
+                        <option value="" disabled selected>Selectionnez le genre</option>
+                        <option value="Homme" class="gender-option">Homme</option>
+                        <option value="Femme" class="gender-option">Femme</option>
+                        <option value="Non-binaire" class="gender-option">Non-binaire</option>
+                    </select>
+                </div>
+                <div>
+                    <h2>Catégorie</h2>
+                    <select name="" id="" class="category-select">
+                        <option value="" disabled selected>Selectionnez la catégorie</option>
+                        <option value="Vagabond" class="category-option">Vagabond</option>
+                        <option value="Seigneur | Lady" class="category-option">Seigneur | Lady</option>
+                        <option value="Paysan" class="category-option">Paysan</option>
+                        <option value="Moine | Nonne" class="category-option">Moine | Nonne</option>
+                        <option value="Sorcier | Sorcière" class="category-option">Sorcier | Sorcière</option>
+                        <option value="Loup-Garou" class="category-option">Loup-Garou</option>
+                    </select>
+                </div>
+                <div class="bottom-buttons-container">
+                    <div class="add-character-button-container">
+                        <button type="submit" class="button add-character-button">Ajouter le personnage</button>
+                    </div>
+                    <div class="start-button-container">
+                        <button class="button start-game-button">Lancer la partie</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
-    <div class="response"></div>
+    
+    <!-- Game Page -->
+    <div class="main-menu-page">
+        <div class="main-wrapper">
+            
+            <!-- Action Buttons Container -->
+            <div class="action-buttons-container buttons-container">
+                <button class="button action-button kill">Tuer</button>
+                <button class="button action-button mary">Prendre en épousaille</button>
+                <button class="button action-button insult">Insulter</button>
+                <button class="button action-button complimenter">Complimenter</button>
+                <button class="button action-button friend">Devenir compagnons</button>
+                <button class="button action-button procreate">Procréer</button>
+            </div>
+
+            <div class="player-cards-wrapper">
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/dead-night.png" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/werewolf-female.png" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/monk-female.png" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/lord-male.png" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/preview (1).webp" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/preview (2).webp" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/preview (1).webp" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-card-content">
+                        <div class="display-name-first-name-wrapper">
+                            <div class="displayed-firstname">Prénom :</div>
+                            <div class="displayed-name">Nom : </div>
+                        </div>
+                        <div class="displayed-player-image">
+                            <div class="player-image"><img src="./img/preview (2).webp" alt=""></div>
+                        </div>
+                        <div class="displayed-category">Category :</div>
+                        <div class="displayed-age">Age :</div>
+                        <div class="displayed-gender">Genre :</div>
+                        <div class="displayed-happiness">Humeur :</div>
+                        <div class="displayed-status">Statut :</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="go-back-menu-button-container buttons-container">
+                <button class="button go-back-menu-button">Revenir au menu de création</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
